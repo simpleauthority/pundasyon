@@ -18,8 +18,8 @@ public class WikipediaGeoimageResponseDeserializer extends StdDeserializer<Wikip
     }
 
     @Override
-    public WikipediaGeoimageResponse deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
-        JsonNode node = jsonParser.getCodec().readTree(jsonParser);
+    public WikipediaGeoimageResponse deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+        JsonNode node = p.readValueAsTree();
 
         JsonNode pagesNode = node.get("query").get("pages");
         if (pagesNode == null) {

@@ -14,8 +14,8 @@ public class OpenCageResponseDeserializer extends StdDeserializer<OpenCageRespon
     }
 
     @Override
-    public OpenCageResponse deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
-        JsonNode node = jsonParser.getCodec().readTree(jsonParser);
+    public OpenCageResponse deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+        JsonNode node = p.readValueAsTree();
 
         JsonNode result = node.get("results").get(0);
         if (result == null) {

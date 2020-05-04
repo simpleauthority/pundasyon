@@ -18,17 +18,6 @@ public abstract class BasicHttpClient {
     }
 
     /**
-     * Send a get request to the specified URL, no extra params and no extra headers, for the given response type
-     *
-     * @param responseType the class of the given response type
-     * @param <T>          the given response type
-     * @return a response wrapping the given response type
-     */
-    public <T> HttpResponse<T> get(Class<T> responseType) {
-        return get(responseType, null, null);
-    }
-
-    /**
      * Send a get request to the specified URL with extra params and extra headers, for the given response type
      *
      * @param responseType the class of the given response type
@@ -36,18 +25,19 @@ public abstract class BasicHttpClient {
      * @return a response wrapping the given response type
      */
     public <T> HttpResponse<T> get(Class<T> responseType, Map<String, String> params, Map<String, String> headers) {
-        return request(HttpMethod.GET, responseType, params, headers);
+        return get(null, responseType, params, headers);
     }
 
     /**
-     * Send a post request to the specified URL, no extra params and no extra headers, for the given response type
+     * Send a get request to the specified URL with extra params and extra headers, for the given response type
      *
+     * @param endpoint     the endpoint to hit if any
      * @param responseType the class of the given response type
      * @param <T>          the given response type
      * @return a response wrapping the given response type
      */
-    public <T> HttpResponse<T> post(Class<T> responseType) {
-        return get(responseType, null, null);
+    public <T> HttpResponse<T> get(String endpoint, Class<T> responseType, Map<String, String> params, Map<String, String> headers) {
+        return request(HttpMethod.GET, endpoint, responseType, params, headers);
     }
 
     /**
@@ -58,18 +48,18 @@ public abstract class BasicHttpClient {
      * @return a response wrapping the given response type
      */
     public <T> HttpResponse<T> post(Class<T> responseType, Map<String, String> params, Map<String, String> headers) {
-        return request(HttpMethod.POST, responseType, params, headers);
+        return post(null, responseType, params, headers);
     }
 
     /**
-     * Send a put request to the specified URL, no extra params and no extra headers, for the given response type
+     * Send a post request to the specified URL with extra params and extra headers, for the given response type
      *
      * @param responseType the class of the given response type
      * @param <T>          the given response type
      * @return a response wrapping the given response type
      */
-    public <T> HttpResponse<T> put(Class<T> responseType) {
-        return get(responseType, null, null);
+    public <T> HttpResponse<T> post(String endpoint, Class<T> responseType, Map<String, String> params, Map<String, String> headers) {
+        return request(HttpMethod.POST, endpoint, responseType, params, headers);
     }
 
     /**
@@ -80,18 +70,19 @@ public abstract class BasicHttpClient {
      * @return a response wrapping the given response type
      */
     public <T> HttpResponse<T> put(Class<T> responseType, Map<String, String> params, Map<String, String> headers) {
-        return request(HttpMethod.PUT, responseType, params, headers);
+        return put(null, responseType, params, headers);
     }
 
     /**
-     * Send a patch request to the specified URL, no extra params and no extra headers, for the given response type
+     * Send a put request to the specified URL with extra params and extra headers, for the given response type
      *
+     * @param endpoint     the endpoint to hit if any
      * @param responseType the class of the given response type
      * @param <T>          the given response type
      * @return a response wrapping the given response type
      */
-    public <T> HttpResponse<T> patch(Class<T> responseType) {
-        return get(responseType, null, null);
+    public <T> HttpResponse<T> put(String endpoint, Class<T> responseType, Map<String, String> params, Map<String, String> headers) {
+        return request(HttpMethod.PUT, endpoint, responseType, params, headers);
     }
 
     /**
@@ -102,18 +93,19 @@ public abstract class BasicHttpClient {
      * @return a response wrapping the given response type
      */
     public <T> HttpResponse<T> patch(Class<T> responseType, Map<String, String> params, Map<String, String> headers) {
-        return request(HttpMethod.PATCH, responseType, params, headers);
+        return patch(null, responseType, params, headers);
     }
 
     /**
-     * Send a delete request to the specified URL, no extra params and no extra headers, for the given response type
+     * Send a patch request to the specified URL with extra params and extra headers, for the given response type
      *
+     * @param endpoint     the endpoint to hit if any
      * @param responseType the class of the given response type
      * @param <T>          the given response type
      * @return a response wrapping the given response type
      */
-    public <T> HttpResponse<T> delete(Class<T> responseType) {
-        return get(responseType, null, null);
+    public <T> HttpResponse<T> patch(String endpoint, Class<T> responseType, Map<String, String> params, Map<String, String> headers) {
+        return request(HttpMethod.PATCH, endpoint, responseType, params, headers);
     }
 
     /**
@@ -124,18 +116,32 @@ public abstract class BasicHttpClient {
      * @return a response wrapping the given response type
      */
     public <T> HttpResponse<T> delete(Class<T> responseType, Map<String, String> params, Map<String, String> headers) {
-        return request(HttpMethod.DELETE, responseType, params, headers);
+        return delete(null, responseType, params, headers);
+    }
+
+    /**
+     * Send a delete request to the specified URL with extra params and extra headers, for the given response type
+     *
+     * @param endpoint     the endpoint to hit if any
+     * @param responseType the class of the given response type
+     * @param <T>          the given response type
+     * @return a response wrapping the given response type
+     */
+    public <T> HttpResponse<T> delete(String endpoint, Class<T> responseType, Map<String, String> params, Map<String, String> headers) {
+        return request(HttpMethod.DELETE, endpoint, responseType, params, headers);
     }
 
     /**
      * Send a completely custom request of arbitrary method with given response type, extra params and extra headers
      *
+     * @param method       the HTTP method to use
+     * @param endpoint     the endpoint to hit if any
      * @param responseType the class of the given response type
      * @param <T>          the given response type
      * @return a response wrapping the given response type
      */
-    public <T> HttpResponse<T> request(HttpMethod method, Class<T> responseType, Map<String, String> params, Map<String, String> headers) {
-        HttpRequestWithBody req = Unirest.request(method.name(), url);
+    public <T> HttpResponse<T> request(HttpMethod method, String endpoint, Class<T> responseType, Map<String, String> params, Map<String, String> headers) {
+        HttpRequestWithBody req = Unirest.request(method.name(), String.format("%s/%s", url, endpoint));
 
         if (requiredParams != null && !requiredParams.isEmpty()) {
             req = applyQueryStrings(req, requiredParams);
