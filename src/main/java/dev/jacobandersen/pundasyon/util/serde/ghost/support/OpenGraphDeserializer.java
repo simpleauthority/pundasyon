@@ -19,8 +19,8 @@ public class OpenGraphDeserializer extends StdDeserializer<OpenGraph> {
 
         return OpenGraph.builder()
                 .image(node.get("og_image").asText(""))
-                .title(node.get("title").asText(""))
-                .description(node.get("description").asText(""))
+                .title(node.get("og_title").asText(""))
+                .description(node.get("og_description").asText(""))
                 .build();
     }
 }
