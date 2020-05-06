@@ -20,7 +20,6 @@ public class GhostInfo {
     private Social social;
     private String lang;
     private String timezone;
-    private String url;
     private Meta meta;
     @JsonProperty("open_graph")
     private OpenGraph openGraph;

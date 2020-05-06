@@ -41,7 +41,6 @@ public class GhostInfoDeserializer extends StdDeserializer<GhostInfo> {
                         .build())
                 .lang(settings.get("lang").asText(""))
                 .timezone(settings.get("timezone").asText(""))
-                .url(settings.get("url").asText(""))
                 .meta(meta)
                 .openGraph(openGraph)
                 .twitter(twitter)

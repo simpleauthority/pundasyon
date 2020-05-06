@@ -26,7 +26,6 @@ public class GhostPostDeserializer extends StdDeserializer<GhostPost> {
         });
         Content content = tree.traverse(p.getCodec()).readValueAs(Content.class);
         Dates dates = tree.traverse(p.getCodec()).readValueAs(Dates.class);
-        Urls urls = tree.traverse(p.getCodec()).readValueAs(Urls.class);
         CodeInjection codeInjection = tree.traverse(p.getCodec()).readValueAs(CodeInjection.class);
         OpenGraph openGraph = tree.traverse(p.getCodec()).readValueAs(OpenGraph.class);
         Twitter twitter = tree.traverse(p.getCodec()).readValueAs(Twitter.class);
@@ -43,7 +42,6 @@ public class GhostPostDeserializer extends StdDeserializer<GhostPost> {
                         .readingTime(tree.get("reading_time").asInt(0))
                         .build())
                 .dates(dates)
-                .urls(urls)
                 .codeInjection(codeInjection)
                 .openGraph(openGraph)
                 .twitter(twitter)

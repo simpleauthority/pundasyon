@@ -19,7 +19,6 @@ public class GhostTag {
     @JsonProperty("feature_image")
     private String featureImage;
     private String visibility;
-    private String url;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @Builder.Default
     private Integer postCount = null;

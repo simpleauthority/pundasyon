@@ -24,7 +24,6 @@ public class GhostAuthor {
     private String location;
     private String facebook;
     private String twitter;
-    private String url;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @Builder.Default
     private Integer postCount = null;

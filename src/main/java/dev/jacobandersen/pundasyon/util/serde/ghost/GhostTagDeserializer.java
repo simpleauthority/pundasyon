@@ -27,7 +27,6 @@ public class GhostTagDeserializer extends StdDeserializer<GhostTag> {
                 .description(tree.get("description").asText(""))
                 .featureImage(tree.get("feature_image").asText(""))
                 .visibility(tree.get("visibility").asText(""))
-                .url(tree.get("url").asText(""))
                 .meta(meta);
 
         if (ConditionalUtil.hasJsonStructure(tree, "count", "count.posts")) {

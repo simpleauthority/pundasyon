@@ -31,7 +31,6 @@ public class GhostAuthorDeserializer extends StdDeserializer<GhostAuthor> {
                 .location(tree.get("location").asText(""))
                 .facebook(tree.get("facebook").asText(""))
                 .twitter(tree.get("twitter").asText(""))
-                .url(tree.get("url").asText(""))
                 .meta(meta);
 
         if (ConditionalUtil.hasJsonStructure(tree, "count", "count.posts")) {

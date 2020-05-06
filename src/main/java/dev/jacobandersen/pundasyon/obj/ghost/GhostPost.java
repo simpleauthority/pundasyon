@@ -17,7 +17,6 @@ public class GhostPost {
     private Content content;
     private Misc misc;
     private Dates dates;
-    private Urls urls;
     @JsonProperty("code_injection")
     private CodeInjection codeInjection;
     @JsonProperty("open_graph")

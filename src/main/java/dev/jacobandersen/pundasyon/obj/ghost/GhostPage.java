@@ -14,7 +14,6 @@ public class GhostPage {
     private Content content;
     private Misc misc;
     private Dates dates;
-    private Urls urls;
     @JsonProperty("code_injection")
     private CodeInjection codeInjection;
     private OpenGraph openGraph;
