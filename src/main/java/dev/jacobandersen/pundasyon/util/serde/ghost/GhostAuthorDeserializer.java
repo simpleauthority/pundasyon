@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import dev.jacobandersen.pundasyon.obj.ghost.GhostAuthor;
 import dev.jacobandersen.pundasyon.obj.ghost.support.Meta;
+import dev.jacobandersen.pundasyon.util.ConditionalUtil;
 
 import java.io.IOException;
 
@@ -19,8 +20,8 @@ public class GhostAuthorDeserializer extends StdDeserializer<GhostAuthor> {
         JsonNode tree = p.readValueAsTree();
         Meta meta = tree.traverse(p.getCodec()).readValueAs(Meta.class);
 
-        return GhostAuthor.builder()
-                .id(tree.get("id").asInt())
+        GhostAuthor.GhostAuthorBuilder author = GhostAuthor.builder()
+                .id(tree.get("id").asInt(-1))
                 .slug(tree.get("slug").asText(""))
                 .name(tree.get("name").asText(""))
                 .profileImage(tree.get("profile_image").asText(""))
@@ -31,7 +32,12 @@ public class GhostAuthorDeserializer extends StdDeserializer<GhostAuthor> {
                 .facebook(tree.get("facebook").asText(""))
                 .twitter(tree.get("twitter").asText(""))
                 .url(tree.get("url").asText(""))
-                .meta(meta)
-                .build();
+                .meta(meta);
+
+        if (ConditionalUtil.hasJsonStructure(tree, "count", "count.posts")) {
+            author = author.postCount(tree.get("count").get("posts").asInt(-1));
+        }
+
+        return author.build();
     }
 }

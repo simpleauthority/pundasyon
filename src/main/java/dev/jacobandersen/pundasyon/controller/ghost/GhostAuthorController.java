@@ -1,6 +1,6 @@
 package dev.jacobandersen.pundasyon.controller.ghost;
 
-import dev.jacobandersen.pundasyon.obj.ghost.GhostAuthors;
+import dev.jacobandersen.pundasyon.obj.ghost.GhostAuthor;
 import dev.jacobandersen.pundasyon.obj.ghost.GhostAuthorsWithPagination;
 import dev.jacobandersen.pundasyon.svc.GhostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +23,12 @@ public class GhostAuthorController {
     }
 
     @GetMapping(value = "id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public GhostAuthors authorById(@PathVariable("id") String id) {
+    public GhostAuthor authorById(@PathVariable("id") String id) {
         return service.getAuthorById(id);
     }
 
     @GetMapping(value = "slug/{slug}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public GhostAuthors authorBySlug(@PathVariable("slug") String slug) {
+    public GhostAuthor authorBySlug(@PathVariable("slug") String slug) {
         return service.getAuthorBySlug(slug);
     }
 }

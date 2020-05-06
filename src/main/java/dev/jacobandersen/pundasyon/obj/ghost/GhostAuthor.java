@@ -1,5 +1,6 @@
 package dev.jacobandersen.pundasyon.obj.ghost;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import dev.jacobandersen.pundasyon.obj.ghost.support.Meta;
@@ -24,5 +25,8 @@ public class GhostAuthor {
     private String facebook;
     private String twitter;
     private String url;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @Builder.Default
+    private Integer postCount = null;
     private Meta meta;
 }

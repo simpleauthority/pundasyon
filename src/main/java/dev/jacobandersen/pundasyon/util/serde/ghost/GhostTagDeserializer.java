@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import dev.jacobandersen.pundasyon.obj.ghost.GhostTag;
 import dev.jacobandersen.pundasyon.obj.ghost.support.Meta;
+import dev.jacobandersen.pundasyon.util.ConditionalUtil;
 
 import java.io.IOException;
 
@@ -19,7 +20,7 @@ public class GhostTagDeserializer extends StdDeserializer<GhostTag> {
         JsonNode tree = p.readValueAsTree();
         Meta meta = tree.traverse(p.getCodec()).readValueAs(Meta.class);
 
-        return GhostTag.builder()
+        GhostTag.GhostTagBuilder tag = GhostTag.builder()
                 .id(tree.get("id").asText(""))
                 .name(tree.get("name").asText(""))
                 .slug(tree.get("slug").asText(""))
@@ -27,7 +28,12 @@ public class GhostTagDeserializer extends StdDeserializer<GhostTag> {
                 .featureImage(tree.get("feature_image").asText(""))
                 .visibility(tree.get("visibility").asText(""))
                 .url(tree.get("url").asText(""))
-                .meta(meta)
-                .build();
+                .meta(meta);
+
+        if (ConditionalUtil.hasJsonStructure(tree, "count", "count.posts")) {
+            tag = tag.postCount(tree.get("count").get("posts").asInt(-1));
+        }
+
+        return tag.build();
     }
 }

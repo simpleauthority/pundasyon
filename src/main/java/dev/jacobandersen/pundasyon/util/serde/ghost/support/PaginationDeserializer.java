@@ -23,7 +23,7 @@ public class PaginationDeserializer extends StdDeserializer<Pagination> {
                 .pages(node.get("pages").asInt())
                 .total(node.get("total").asInt())
                 .next(node.get("next").asInt(-1))
-                .next(node.get("prev").asInt(-1))
+                .prev(node.get("prev").asInt(-1))
                 .build();
     }
 }

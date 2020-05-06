@@ -1,6 +1,6 @@
 package dev.jacobandersen.pundasyon.controller.ghost;
 
-import dev.jacobandersen.pundasyon.obj.ghost.GhostTags;
+import dev.jacobandersen.pundasyon.obj.ghost.GhostTag;
 import dev.jacobandersen.pundasyon.obj.ghost.GhostTagsWithPagination;
 import dev.jacobandersen.pundasyon.svc.GhostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +23,12 @@ public class GhostTagController {
     }
 
     @GetMapping(value = "id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public GhostTags tagById(@PathVariable("id") String id) {
+    public GhostTag tagById(@PathVariable("id") String id) {
         return service.getTagById(id);
     }
 
     @GetMapping(value = "slug/{slug}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public GhostTags tagBySlug(@PathVariable("slug") String slug) {
+    public GhostTag tagBySlug(@PathVariable("slug") String slug) {
         return service.getTagBySlug(slug);
     }
 }

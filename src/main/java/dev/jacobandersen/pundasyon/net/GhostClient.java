@@ -2,9 +2,12 @@ package dev.jacobandersen.pundasyon.net;
 
 import dev.jacobandersen.pundasyon.obj.ghost.*;
 import dev.jacobandersen.pundasyon.util.MapUtil;
+import dev.jacobandersen.pundasyon.util.StringUtil;
 import kong.unirest.HttpResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class GhostClient extends BasicHttpClient {
@@ -43,6 +46,18 @@ public class GhostClient extends BasicHttpClient {
         );
     }
 
+    public HttpResponse<GhostPostsWithPagination> getPostsWithTags(List<String> tags) {
+        return get(
+                "posts",
+                GhostPostsWithPagination.class,
+                MapUtil.createMap(
+                        "include", "authors,tags",
+                        "filter", StringUtil.glueWithFormatOnComma(tags, "tag:%s")
+                ),
+                null
+        );
+    }
+
     public HttpResponse<GhostPagesWithPagination> getPages(int limit, int page) {
         return get(
                 "pages",
@@ -74,11 +89,24 @@ public class GhostClient extends BasicHttpClient {
         );
     }
 
+    public HttpResponse<GhostPagesWithPagination> getPagesWithTags(List<String> tags) {
+        return get(
+                "pages",
+                GhostPagesWithPagination.class,
+                MapUtil.createMap(
+                        "include", "tags",
+                        "filter", StringUtil.glueWithFormatOnComma(tags, "tag:%s")
+                ),
+                null
+        );
+    }
+
     public HttpResponse<GhostTagsWithPagination> getTags(int limit, int page) {
         return get(
                 "tags",
                 GhostTagsWithPagination.class,
                 MapUtil.createMap(
+                        "include", "count.posts",
                         "limit", limit,
                         "page", page
                 ),
@@ -90,7 +118,7 @@ public class GhostClient extends BasicHttpClient {
         return get(
                 String.format("tags/%s", id),
                 GhostTags.class,
-                null,
+                MapUtil.createMap("include", "count.posts"),
                 null
         );
     }
@@ -99,7 +127,7 @@ public class GhostClient extends BasicHttpClient {
         return get(
                 String.format("tags/slug/%s", slug),
                 GhostTags.class,
-                null,
+                MapUtil.createMap("include", "count.posts"),
                 null
         );
     }
@@ -109,6 +137,7 @@ public class GhostClient extends BasicHttpClient {
                 "authors",
                 GhostAuthorsWithPagination.class,
                 MapUtil.createMap(
+                        "include", "count.posts",
                         "limit", limit,
                         "page", page
                 ),
@@ -120,7 +149,7 @@ public class GhostClient extends BasicHttpClient {
         return get(
                 String.format("authors/%s", id),
                 GhostAuthors.class,
-                null,
+                MapUtil.createMap("include", "count.posts"),
                 null
         );
     }
@@ -129,7 +158,7 @@ public class GhostClient extends BasicHttpClient {
         return get(
                 String.format("authors/slug/%s", slug),
                 GhostAuthors.class,
-                null,
+                MapUtil.createMap("include", "count.posts"),
                 null
         );
     }

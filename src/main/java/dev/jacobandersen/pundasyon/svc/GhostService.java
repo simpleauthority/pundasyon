@@ -7,6 +7,8 @@ import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @CacheConfig(cacheNames = {"ghost"})
 public class GhostService {
@@ -23,13 +25,18 @@ public class GhostService {
     }
 
     @Cacheable
-    public GhostPosts getPostById(String id) {
-        return client.getPostById(id).getBody();
+    public GhostPost getPostById(String id) {
+        return client.getPostById(id).getBody().getPosts().get(0);
     }
 
     @Cacheable
-    public GhostPosts getPostBySlug(String slug) {
-        return client.getPostBySlug(slug).getBody();
+    public GhostPost getPostBySlug(String slug) {
+        return client.getPostBySlug(slug).getBody().getPosts().get(0);
+    }
+
+    @Cacheable
+    public GhostPostsWithPagination getPostsWithTags(List<String> tags) {
+        return client.getPostsWithTags(tags).getBody();
     }
 
     @Cacheable
@@ -38,13 +45,18 @@ public class GhostService {
     }
 
     @Cacheable
-    public GhostPages getPageById(String id) {
-        return client.getPageById(id).getBody();
+    public GhostPage getPageById(String id) {
+        return client.getPageById(id).getBody().getPages().get(0);
     }
 
     @Cacheable
-    public GhostPages getPageBySlug(String slug) {
-        return client.getPageBySlug(slug).getBody();
+    public GhostPage getPageBySlug(String slug) {
+        return client.getPageBySlug(slug).getBody().getPages().get(0);
+    }
+
+    @Cacheable
+    public GhostPagesWithPagination getPagesWithTags(List<String> tags) {
+        return client.getPagesWithTags(tags).getBody();
     }
 
     @Cacheable
@@ -53,13 +65,13 @@ public class GhostService {
     }
 
     @Cacheable
-    public GhostTags getTagById(String id) {
-        return client.getTagById(id).getBody();
+    public GhostTag getTagById(String id) {
+        return client.getTagById(id).getBody().getTags().get(0);
     }
 
     @Cacheable
-    public GhostTags getTagBySlug(String slug) {
-        return client.getTagBySlug(slug).getBody();
+    public GhostTag getTagBySlug(String slug) {
+        return client.getTagBySlug(slug).getBody().getTags().get(0);
     }
 
     @Cacheable
@@ -68,13 +80,13 @@ public class GhostService {
     }
 
     @Cacheable
-    public GhostAuthors getAuthorById(String id) {
-        return client.getAuthorById(id).getBody();
+    public GhostAuthor getAuthorById(String id) {
+        return client.getAuthorById(id).getBody().getAuthors().get(0);
     }
 
     @Cacheable
-    public GhostAuthors getAuthorBySlug(String slug) {
-        return client.getAuthorBySlug(slug).getBody();
+    public GhostAuthor getAuthorBySlug(String slug) {
+        return client.getAuthorBySlug(slug).getBody().getAuthors().get(0);
     }
 
     @Cacheable

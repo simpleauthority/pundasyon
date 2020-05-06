@@ -1,11 +1,13 @@
 package dev.jacobandersen.pundasyon.controller.ghost;
 
-import dev.jacobandersen.pundasyon.obj.ghost.GhostPages;
+import dev.jacobandersen.pundasyon.obj.ghost.GhostPage;
 import dev.jacobandersen.pundasyon.obj.ghost.GhostPagesWithPagination;
 import dev.jacobandersen.pundasyon.svc.GhostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("cms/page")
@@ -23,12 +25,17 @@ public class GhostPageController {
     }
 
     @GetMapping(value = "id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public GhostPages pageById(@PathVariable("id") String id) {
+    public GhostPage pageById(@PathVariable("id") String id) {
         return service.getPageById(id);
     }
 
     @GetMapping(value = "slug/{slug}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public GhostPages pageBySlug(@PathVariable("slug") String slug) {
+    public GhostPage pageBySlug(@PathVariable("slug") String slug) {
         return service.getPageBySlug(slug);
+    }
+
+    @GetMapping(value = "tag/{tags}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public GhostPagesWithPagination pagesWithTags(@PathVariable("tags") List<String> tags) {
+        return service.getPagesWithTags(tags);
     }
 }
