@@ -141,7 +141,14 @@ public abstract class BasicHttpClient {
      * @return a response wrapping the given response type
      */
     public <T> HttpResponse<T> request(HttpMethod method, String endpoint, Class<T> responseType, Map<String, String> params, Map<String, String> headers) {
-        HttpRequestWithBody req = Unirest.request(method.name(), String.format("%s/%s", url, endpoint));
+        String url;
+        if (endpoint == null) {
+            url = this.url;
+        } else {
+            url = String.format("%s/%s", this.url, endpoint);
+        }
+
+        HttpRequestWithBody req = Unirest.request(method.name(), url);
 
         if (requiredParams != null && !requiredParams.isEmpty()) {
             req = applyQueryStrings(req, requiredParams);
