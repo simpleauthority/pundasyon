@@ -18,6 +18,10 @@ configurations {
     }
 }
 
+bootJar {
+    archiveFileName = "pundasyon.jar"
+}
+
 repositories {
     mavenCentral()
 }
