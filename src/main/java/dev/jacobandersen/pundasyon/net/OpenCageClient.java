@@ -17,6 +17,6 @@ public class OpenCageClient extends BasicHttpClient {
     }
 
     public HttpResponse<OpenCageResponse> getReverseGeocode(float latitude, float longitude) {
-        return get(OpenCageResponse.class, MapUtil.createMap("q", String.format("%s+%s", latitude, longitude)), null);
+        return get(OpenCageResponse.class, MapUtil.createMap("q", String.format("%s,%s", latitude, longitude)), null);
     }
 }
