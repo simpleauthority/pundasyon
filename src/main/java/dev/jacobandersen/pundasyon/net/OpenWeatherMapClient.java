@@ -20,7 +20,7 @@ public class OpenWeatherMapClient extends BasicHttpClient {
         Map<String, String> params = MapUtil.createMap(
                 "lat", latitude,
                 "lon", longitude,
-                "exclude", "daily"
+                "exclude", "minutely"
         );
 
         if (units != OpenWeatherMapUnits.STANDARD) {

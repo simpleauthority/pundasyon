@@ -15,10 +15,6 @@ public class OpenCageResponse {
     private String country;
     private String flag;
     private String city;
-    @JsonProperty("civil_sunrise")
-    private long civilSunrise;
-    @JsonProperty("civil_sunset")
-    private long civilSunset;
     private float latitude;
     private float longitude;
 }

@@ -8,84 +8,89 @@ import dev.jacobandersen.pundasyon.obj.openweathermap.support.OpenWeatherMapWeat
 
 import java.util.List;
 
-public class OpenWeatherMapHourly {
+public class OpenWeatherMapConditions {
     /**
-     * Time for which conditions are valid for next hour (Unix timestamp)
+     * Time for which conditions are valid (Unix timestamp)
      */
     private long time;
 
     /**
-     * Forecasted actual temperature (standard: kelvin, metric: celsius, imperial: fahrenheit)
+     * Time of sunrise for the current day (Unix timestamp)
+     */
+    private long sunrise;
+
+    /**
+     * Time of sunset for the current day (Unix timestamp)
+     */
+    private long sunset;
+
+    /**
+     * Current actual temperature (standard: kelvin, metric: celsius, imperial: fahrenheit)
      */
     private float temperature;
 
     /**
-     * Forecasted apparent temperature (standard: kelvin, metric: celsius, imperial: fahrenheit)
+     * Current apparent temperature (standard: kelvin, metric: celsius, imperial: fahrenheit)
      */
     private float temperatureFeelsLike;
 
     /**
-     * Forecasted atmospheric pressure at sea level (hectopascals)
+     * Current atmospheric pressure at sea level (hectopascals)
      */
     private float pressure;
 
     /**
-     * Forecasted air humidity (percentage)
+     * Current air humidity (percentage)
      */
     private int humidity;
 
     /**
-     * Forecasted temperature below which dew will form (standard: kelvin, metric: celsius, imperial: fahrenheit)
+     * Temperature below which dew will form (standard: kelvin, metric: celsius, imperial: fahrenheit)
      */
     private float dewPoint;
 
     /**
-     * Forecasted cloud cover (percentage)
+     * Current cloud cover (percentage)
      */
     private int cloudCover;
 
     /**
-     * Forecasted UV index (multiply by 25 for milliwatts per square meter)
+     * Current UV index (multiply by 25 for milliwatts per square meter)
      */
     private int uvIndex;
 
     /**
-     * Forecasted average visibility (meters)
+     * Current average visibility (meters)
      */
     private int visibility;
 
     /**
-     * Forecasted wind speed (standard: meter/sec, metric: meter/sec, imperial: mile/hour)
+     * Current wind speed (standard: meter/sec, metric: meter/sec, imperial: mile/hour)
      */
     private float windSpeed;
 
     /**
-     * Forecasted maximum wind speed (standard: meter/sec, metric: meter/sec, imperial: mile/hour)
+     * Current maximum wind speed (standard: meter/sec, metric: meter/sec, imperial: mile/hour)
      */
-    private float windGustSpeed = -1.0f;
+    private float windGustSpeed;
 
     /**
-     * Forecasted direction of wind (degrees)
+     * Current direction of wind (degrees)
      */
     private float windDirection;
 
     /**
-     * Forecasted probability that it will rain or snow during this hour
-     */
-    private float probabilityOfPrecipitation;
-
-    /**
-     * Rainfall in preceding hour
+     * Current rainfall
      */
     private OpenWeatherMapPrecipitationDetails rain = new OpenWeatherMapPrecipitationDetails();
 
     /**
-     * Snowfall in preceding hour
+     * Current snowfall
      */
     private OpenWeatherMapPrecipitationDetails snow = new OpenWeatherMapPrecipitationDetails();
 
     /**
-     * Summary of forecasted conditions
+     * Summary of current conditions
      */
     private List<OpenWeatherMapWeatherSummary> summary;
 
@@ -97,6 +102,22 @@ public class OpenWeatherMapHourly {
     @JsonSetter("dt")
     public void setTime(long time) {
         this.time = time;
+    }
+
+    public long getSunrise() {
+        return sunrise;
+    }
+
+    public void setSunrise(long sunrise) {
+        this.sunrise = sunrise;
+    }
+
+    public long getSunset() {
+        return sunset;
+    }
+
+    public void setSunset(long sunset) {
+        this.sunset = sunset;
     }
 
     @JsonGetter("temperature")
@@ -201,16 +222,6 @@ public class OpenWeatherMapHourly {
     @JsonSetter("wind_deg")
     public void setWindDirection(float windDirection) {
         this.windDirection = windDirection;
-    }
-
-    @JsonGetter("probability_of_precipitation")
-    public float getProbabilityOfPrecipitation() {
-        return probabilityOfPrecipitation;
-    }
-
-    @JsonSetter("pop")
-    public void setProbabilityOfPrecipitation(float probabilityOfPrecipitation) {
-        this.probabilityOfPrecipitation = probabilityOfPrecipitation;
     }
 
     @JsonGetter("rainfall")

@@ -3,26 +3,58 @@ package dev.jacobandersen.pundasyon.obj.openweathermap;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
+import dev.jacobandersen.pundasyon.obj.openweathermap.support.OpenWeatherMapMoonPhase;
 import dev.jacobandersen.pundasyon.obj.openweathermap.support.OpenWeatherMapPrecipitationDetails;
+import dev.jacobandersen.pundasyon.obj.openweathermap.support.OpenWeatherMapTemperatureDrilldown;
 import dev.jacobandersen.pundasyon.obj.openweathermap.support.OpenWeatherMapWeatherSummary;
 
 import java.util.List;
 
-public class OpenWeatherMapHourly {
+public class OpenWeatherMapDaily {
     /**
-     * Time for which conditions are valid for next hour (Unix timestamp)
+     * Noon timestamp of the day for which these conditions are valid (Unix timestamp)
      */
     private long time;
 
     /**
-     * Forecasted actual temperature (standard: kelvin, metric: celsius, imperial: fahrenheit)
+     * Time of sunrise for the given day (Unix timestamp)
      */
-    private float temperature;
+    private long sunrise;
 
     /**
-     * Forecasted apparent temperature (standard: kelvin, metric: celsius, imperial: fahrenheit)
+     * Time of sunset for the given day (Unix timestamp)
      */
-    private float temperatureFeelsLike;
+    private long sunset;
+
+    /**
+     * Time of moonrise for the given day (Unix timestamp)
+     */
+    private long moonrise;
+
+    /**
+     * Time of moonset for the given day (Unix timestamp)
+     */
+    private long moonset;
+
+    /**
+     * Value of phase of the moon for the given day
+     */
+    private float moonPhase;
+
+    /**
+     * Name of phase of the moon for the given day
+     */
+    private OpenWeatherMapMoonPhase moonPhaseName;
+
+    /**
+     * Forecasted actual temperatures
+     */
+    private OpenWeatherMapTemperatureDrilldown temperature;
+
+    /**
+     * Forecasted apparent temperatures
+     */
+    private OpenWeatherMapTemperatureDrilldown temperatureFeelsLike;
 
     /**
      * Forecasted atmospheric pressure at sea level (hectopascals)
@@ -99,23 +131,71 @@ public class OpenWeatherMapHourly {
         this.time = time;
     }
 
+    public long getSunrise() {
+        return sunrise;
+    }
+
+    public void setSunrise(long sunrise) {
+        this.sunrise = sunrise;
+    }
+
+    public long getSunset() {
+        return sunset;
+    }
+
+    public void setSunset(long sunset) {
+        this.sunset = sunset;
+    }
+
+    public long getMoonrise() {
+        return moonrise;
+    }
+
+    public void setMoonrise(long moonrise) {
+        this.moonrise = moonrise;
+    }
+
+    public long getMoonset() {
+        return moonset;
+    }
+
+    public void setMoonset(long moonset) {
+        this.moonset = moonset;
+    }
+
+    @JsonGetter("moon_phase_value")
+    public float getMoonPhase() {
+        return moonPhase;
+    }
+
+    @JsonSetter("moon_phase")
+    public void setMoonPhase(float moonPhase) {
+        this.moonPhase = moonPhase;
+        this.moonPhaseName = OpenWeatherMapMoonPhase.valueToPhaseName(moonPhase);
+    }
+
+    @JsonGetter("moon_phase")
+    public OpenWeatherMapMoonPhase getMoonPhaseName() {
+        return moonPhaseName;
+    }
+
     @JsonGetter("temperature")
-    public float getTemperature() {
+    public OpenWeatherMapTemperatureDrilldown getTemperature() {
         return temperature;
     }
 
     @JsonSetter("temp")
-    public void setTemperature(float temperature) {
+    public void setTemperature(OpenWeatherMapTemperatureDrilldown temperature) {
         this.temperature = temperature;
     }
 
     @JsonGetter("feels_like")
-    public float getTemperatureFeelsLike() {
+    public OpenWeatherMapTemperatureDrilldown getTemperatureFeelsLike() {
         return temperatureFeelsLike;
     }
 
     @JsonSetter("feels_like")
-    public void setTemperatureFeelsLike(float temperatureFeelsLike) {
+    public void setTemperatureFeelsLike(OpenWeatherMapTemperatureDrilldown temperatureFeelsLike) {
         this.temperatureFeelsLike = temperatureFeelsLike;
     }
 

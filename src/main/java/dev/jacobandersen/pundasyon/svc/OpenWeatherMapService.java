@@ -2,6 +2,7 @@ package dev.jacobandersen.pundasyon.svc;
 
 import dev.jacobandersen.pundasyon.net.OpenWeatherMapClient;
 import dev.jacobandersen.pundasyon.obj.openweathermap.OpenWeatherMapResponse;
+import kong.unirest.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
