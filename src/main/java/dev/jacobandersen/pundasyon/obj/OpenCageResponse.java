@@ -14,6 +14,7 @@ public class OpenCageResponse {
     private int callingCode;
     private String country;
     private String flag;
+    private String state;
     private String city;
     private float latitude;
     private float longitude;

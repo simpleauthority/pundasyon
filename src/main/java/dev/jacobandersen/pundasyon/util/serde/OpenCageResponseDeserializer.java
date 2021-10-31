@@ -26,6 +26,11 @@ public class OpenCageResponseDeserializer extends StdDeserializer<OpenCageRespon
         JsonNode components = result.get("components");
         JsonNode geometry = result.get("geometry");
 
+        String state = components.has("state") ?
+                components.get("state").asText() :
+                (components.has("state_code") ?
+                        components.get("state_code").asText() : null);
+
         String city = components.has("city") ?
                 components.get("city").asText() :
                 (components.has("town") ?
@@ -37,6 +42,7 @@ public class OpenCageResponseDeserializer extends StdDeserializer<OpenCageRespon
                 .callingCode(annotations.get("callingcode").asInt())
                 .country(components.get("country").asText())
                 .flag(annotations.get("flag").asText())
+                .state(state)
                 .city(city)
                 .latitude(geometry.get("lat").floatValue())
                 .longitude(geometry.get("lng").floatValue())
