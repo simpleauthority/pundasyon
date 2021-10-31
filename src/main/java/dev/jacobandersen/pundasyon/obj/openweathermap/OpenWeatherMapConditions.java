@@ -3,8 +3,9 @@ package dev.jacobandersen.pundasyon.obj.openweathermap;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
-import dev.jacobandersen.pundasyon.obj.openweathermap.support.OpenWeatherMapPrecipitationDetails;
+import dev.jacobandersen.pundasyon.obj.openweathermap.support.OpenWeatherMapLastHourPrecipitationDetails;
 import dev.jacobandersen.pundasyon.obj.openweathermap.support.OpenWeatherMapWeatherSummary;
+import dev.jacobandersen.pundasyon.obj.openweathermap.support.OpenWeatherMapWindDirection;
 
 import java.util.List;
 
@@ -80,14 +81,19 @@ public class OpenWeatherMapConditions {
     private float windDirection;
 
     /**
+     * Current direction of wind (cardinal)
+     */
+    private OpenWeatherMapWindDirection windCardinalDirection;
+
+    /**
      * Current rainfall
      */
-    private OpenWeatherMapPrecipitationDetails rain = new OpenWeatherMapPrecipitationDetails();
+    private OpenWeatherMapLastHourPrecipitationDetails rain = new OpenWeatherMapLastHourPrecipitationDetails();
 
     /**
      * Current snowfall
      */
-    private OpenWeatherMapPrecipitationDetails snow = new OpenWeatherMapPrecipitationDetails();
+    private OpenWeatherMapLastHourPrecipitationDetails snow = new OpenWeatherMapLastHourPrecipitationDetails();
 
     /**
      * Summary of current conditions
@@ -222,25 +228,31 @@ public class OpenWeatherMapConditions {
     @JsonSetter("wind_deg")
     public void setWindDirection(float windDirection) {
         this.windDirection = windDirection;
+        this.windCardinalDirection = OpenWeatherMapWindDirection.valueToDirection(windDirection);
+    }
+
+    @JsonGetter("wind_cardinal_direction")
+    public String getWindCardinalDirection() {
+        return windCardinalDirection.cleanName();
     }
 
     @JsonGetter("rainfall")
-    public OpenWeatherMapPrecipitationDetails getRain() {
+    public OpenWeatherMapLastHourPrecipitationDetails getRain() {
         return rain;
     }
 
     @JsonSetter(value = "rain", nulls = Nulls.SKIP)
-    public void setRain(OpenWeatherMapPrecipitationDetails rain) {
+    public void setRain(OpenWeatherMapLastHourPrecipitationDetails rain) {
         this.rain = rain;
     }
 
     @JsonGetter("snowfall")
-    public OpenWeatherMapPrecipitationDetails getSnow() {
+    public OpenWeatherMapLastHourPrecipitationDetails getSnow() {
         return snow;
     }
 
     @JsonSetter(value = "snow", nulls = Nulls.SKIP)
-    public void setSnow(OpenWeatherMapPrecipitationDetails snow) {
+    public void setSnow(OpenWeatherMapLastHourPrecipitationDetails snow) {
         this.snow = snow;
     }
 

@@ -20,6 +20,11 @@ public class OpenWeatherMapService {
 
     @Cacheable
     public OpenWeatherMapResponse getWeather(float latitude, float longitude, OpenWeatherMapClient.OpenWeatherMapUnits units) {
-        return client.getWeather(latitude, longitude, units).getBody();
+        HttpResponse<OpenWeatherMapResponse> resp = client.getWeather(latitude, longitude, units);
+        resp.getParsingError().ifPresent(err -> {
+            err.printStackTrace();
+            System.out.println(err.getOriginalBody());
+        });
+        return resp.getBody();
     }
 }

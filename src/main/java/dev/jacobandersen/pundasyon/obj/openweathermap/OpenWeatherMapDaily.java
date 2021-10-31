@@ -4,9 +4,10 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import dev.jacobandersen.pundasyon.obj.openweathermap.support.OpenWeatherMapMoonPhase;
-import dev.jacobandersen.pundasyon.obj.openweathermap.support.OpenWeatherMapPrecipitationDetails;
+import dev.jacobandersen.pundasyon.obj.openweathermap.support.OpenWeatherMapLastHourPrecipitationDetails;
 import dev.jacobandersen.pundasyon.obj.openweathermap.support.OpenWeatherMapTemperatureDrilldown;
 import dev.jacobandersen.pundasyon.obj.openweathermap.support.OpenWeatherMapWeatherSummary;
+import dev.jacobandersen.pundasyon.obj.openweathermap.support.OpenWeatherMapWindDirection;
 
 import java.util.List;
 
@@ -102,6 +103,11 @@ public class OpenWeatherMapDaily {
     private float windDirection;
 
     /**
+     * Forecasted direction of wind (cardinal)
+     */
+    private OpenWeatherMapWindDirection windCardinalDirection;
+
+    /**
      * Forecasted probability that it will rain or snow during this hour
      */
     private float probabilityOfPrecipitation;
@@ -109,12 +115,12 @@ public class OpenWeatherMapDaily {
     /**
      * Rainfall in preceding hour
      */
-    private OpenWeatherMapPrecipitationDetails rain = new OpenWeatherMapPrecipitationDetails();
+    private float rain = 0f;
 
     /**
      * Snowfall in preceding hour
      */
-    private OpenWeatherMapPrecipitationDetails snow = new OpenWeatherMapPrecipitationDetails();
+    private float snow = 0f;
 
     /**
      * Summary of forecasted conditions
@@ -175,8 +181,8 @@ public class OpenWeatherMapDaily {
     }
 
     @JsonGetter("moon_phase")
-    public OpenWeatherMapMoonPhase getMoonPhaseName() {
-        return moonPhaseName;
+    public String getMoonPhaseName() {
+        return moonPhaseName.cleanName();
     }
 
     @JsonGetter("temperature")
@@ -281,6 +287,12 @@ public class OpenWeatherMapDaily {
     @JsonSetter("wind_deg")
     public void setWindDirection(float windDirection) {
         this.windDirection = windDirection;
+        this.windCardinalDirection = OpenWeatherMapWindDirection.valueToDirection(windDirection);
+    }
+
+    @JsonGetter("wind_cardinal_direction")
+    public String getWindCardinalDirection() {
+        return windCardinalDirection.cleanName();
     }
 
     @JsonGetter("probability_of_precipitation")
@@ -294,22 +306,22 @@ public class OpenWeatherMapDaily {
     }
 
     @JsonGetter("rainfall")
-    public OpenWeatherMapPrecipitationDetails getRain() {
+    public float getRain() {
         return rain;
     }
 
     @JsonSetter(value = "rain", nulls = Nulls.SKIP)
-    public void setRain(OpenWeatherMapPrecipitationDetails rain) {
+    public void setRain(float rain) {
         this.rain = rain;
     }
 
     @JsonGetter("snowfall")
-    public OpenWeatherMapPrecipitationDetails getSnow() {
+    public float getSnow() {
         return snow;
     }
 
     @JsonSetter(value = "snow", nulls = Nulls.SKIP)
-    public void setSnow(OpenWeatherMapPrecipitationDetails snow) {
+    public void setSnow(float snow) {
         this.snow = snow;
     }
 

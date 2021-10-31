@@ -4,19 +4,19 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 
-public class OpenWeatherMapPrecipitationDetails {
+public class OpenWeatherMapLastHourPrecipitationDetails {
     /**
      * Volume of precipitation in last hour (millimeters)
      */
-    private float lastHour = 0.0f;
+    private double lastHour = 0.0f;
 
     @JsonGetter("last_hour")
-    public float getLastHour() {
+    public double getLastHour() {
         return lastHour;
     }
 
     @JsonSetter(value = "1h", nulls = Nulls.SKIP)
-    public void setLastHour(float lastHour) {
+    public void setLastHour(double lastHour) {
         this.lastHour = lastHour;
     }
 }

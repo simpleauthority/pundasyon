@@ -1,5 +1,7 @@
 package dev.jacobandersen.pundasyon.obj.openweathermap.support;
 
+import dev.jacobandersen.pundasyon.util.EnumUtil;
+
 public enum OpenWeatherMapMoonPhase {
     NEW,
     WAXING_CRESCENT,
@@ -10,12 +12,16 @@ public enum OpenWeatherMapMoonPhase {
     LAST_QUARTER,
     WANING_CRESCENT;
 
+    public String cleanName() {
+        return EnumUtil.toString(this);
+    }
+
     public static OpenWeatherMapMoonPhase valueToPhaseName(float value) {
         if (value < 0f || value > 1f) {
             throw new IllegalArgumentException("Moon phase value is clamped between 0f and 1f.");
         }
 
-        if (value == 0f || value == 1f) {
+        if (value == 0f) {
             return NEW;
         } else if (value < 0.25f) {
             return WAXING_CRESCENT;
@@ -31,8 +37,8 @@ public enum OpenWeatherMapMoonPhase {
             return LAST_QUARTER;
         } else if (value < 1f) {
             return WANING_CRESCENT;
+        } else {
+            return NEW;
         }
-
-        return null;
     }
 }
