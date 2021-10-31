@@ -3,11 +3,11 @@ package dev.jacobandersen.pundasyon.obj.openweathermap;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
-import dev.jacobandersen.pundasyon.obj.openweathermap.support.OpenWeatherMapMoonPhase;
-import dev.jacobandersen.pundasyon.obj.openweathermap.support.OpenWeatherMapLastHourPrecipitationDetails;
+import dev.jacobandersen.pundasyon.obj.openweathermap.support.OpenWeatherMapMoon;
+import dev.jacobandersen.pundasyon.obj.openweathermap.support.OpenWeatherMapSun;
 import dev.jacobandersen.pundasyon.obj.openweathermap.support.OpenWeatherMapTemperatureDrilldown;
 import dev.jacobandersen.pundasyon.obj.openweathermap.support.OpenWeatherMapWeatherSummary;
-import dev.jacobandersen.pundasyon.obj.openweathermap.support.OpenWeatherMapWindDirection;
+import dev.jacobandersen.pundasyon.obj.openweathermap.support.OpenWeatherMapWind;
 
 import java.util.List;
 
@@ -18,34 +18,14 @@ public class OpenWeatherMapDaily {
     private long time;
 
     /**
-     * Time of sunrise for the given day (Unix timestamp)
+     * Information about the sun for the given day
      */
-    private long sunrise;
+    private final OpenWeatherMapSun sun = new OpenWeatherMapSun();
 
     /**
-     * Time of sunset for the given day (Unix timestamp)
+     * Information about the moon for the given day
      */
-    private long sunset;
-
-    /**
-     * Time of moonrise for the given day (Unix timestamp)
-     */
-    private long moonrise;
-
-    /**
-     * Time of moonset for the given day (Unix timestamp)
-     */
-    private long moonset;
-
-    /**
-     * Value of phase of the moon for the given day
-     */
-    private float moonPhase;
-
-    /**
-     * Name of phase of the moon for the given day
-     */
-    private OpenWeatherMapMoonPhase moonPhaseName;
+    private final OpenWeatherMapMoon moon = new OpenWeatherMapMoon();
 
     /**
      * Forecasted actual temperatures
@@ -88,24 +68,9 @@ public class OpenWeatherMapDaily {
     private int visibility;
 
     /**
-     * Forecasted wind speed (standard: meter/sec, metric: meter/sec, imperial: mile/hour)
+     * Forecasted wind information
      */
-    private float windSpeed;
-
-    /**
-     * Forecasted maximum wind speed (standard: meter/sec, metric: meter/sec, imperial: mile/hour)
-     */
-    private float windGustSpeed = -1.0f;
-
-    /**
-     * Forecasted direction of wind (degrees)
-     */
-    private float windDirection;
-
-    /**
-     * Forecasted direction of wind (cardinal)
-     */
-    private OpenWeatherMapWindDirection windCardinalDirection;
+    private final OpenWeatherMapWind wind = new OpenWeatherMapWind();
 
     /**
      * Forecasted probability that it will rain or snow during this hour
@@ -134,55 +99,42 @@ public class OpenWeatherMapDaily {
 
     @JsonSetter("dt")
     public void setTime(long time) {
-        this.time = time;
+        this.time = time * 1000L;
     }
 
-    public long getSunrise() {
-        return sunrise;
+    @JsonGetter("sun")
+    public OpenWeatherMapSun getSun() {
+        return this.sun;
     }
 
+    @JsonSetter("sunrise")
     public void setSunrise(long sunrise) {
-        this.sunrise = sunrise;
+        this.sun.setRise(sunrise * 1000L);
     }
 
-    public long getSunset() {
-        return sunset;
-    }
-
+    @JsonSetter("sunset")
     public void setSunset(long sunset) {
-        this.sunset = sunset;
+        this.sun.setSet(sunset * 1000L);
     }
 
-    public long getMoonrise() {
-        return moonrise;
+    @JsonGetter("moon")
+    public OpenWeatherMapMoon getMoon() {
+        return this.moon;
     }
 
+    @JsonSetter("moonrise")
     public void setMoonrise(long moonrise) {
-        this.moonrise = moonrise;
+        this.moon.setRise(moonrise * 1000L);
     }
 
-    public long getMoonset() {
-        return moonset;
-    }
-
+    @JsonSetter("moonset")
     public void setMoonset(long moonset) {
-        this.moonset = moonset;
-    }
-
-    @JsonGetter("moon_phase_value")
-    public float getMoonPhase() {
-        return moonPhase;
+        this.moon.setSet(moonset * 1000L);
     }
 
     @JsonSetter("moon_phase")
     public void setMoonPhase(float moonPhase) {
-        this.moonPhase = moonPhase;
-        this.moonPhaseName = OpenWeatherMapMoonPhase.valueToPhaseName(moonPhase);
-    }
-
-    @JsonGetter("moon_phase")
-    public String getMoonPhaseName() {
-        return moonPhaseName.cleanName();
+        this.moon.setPhase(moonPhase);
     }
 
     @JsonGetter("temperature")
@@ -259,40 +211,24 @@ public class OpenWeatherMapDaily {
         this.visibility = visibility;
     }
 
-    @JsonGetter("wind_speed")
-    public float getWindSpeed() {
-        return windSpeed;
+    @JsonGetter("wind")
+    public OpenWeatherMapWind getWind() {
+        return this.wind;
     }
 
     @JsonSetter("wind_speed")
     public void setWindSpeed(float windSpeed) {
-        this.windSpeed = windSpeed;
-    }
-
-    @JsonGetter("wind_gust_speed")
-    public float getWindGustSpeed() {
-        return windGustSpeed;
+        this.wind.setSpeed(windSpeed);
     }
 
     @JsonSetter(value = "wind_gust", nulls = Nulls.SKIP)
     public void setWindGustSpeed(float windGustSpeed) {
-        this.windGustSpeed = windGustSpeed;
-    }
-
-    @JsonGetter("wind_direction")
-    public float getWindDirection() {
-        return windDirection;
+        this.wind.setGustSpeed(windGustSpeed);
     }
 
     @JsonSetter("wind_deg")
     public void setWindDirection(float windDirection) {
-        this.windDirection = windDirection;
-        this.windCardinalDirection = OpenWeatherMapWindDirection.valueToDirection(windDirection);
-    }
-
-    @JsonGetter("wind_cardinal_direction")
-    public String getWindCardinalDirection() {
-        return windCardinalDirection.cleanName();
+        this.wind.setDirection(windDirection);
     }
 
     @JsonGetter("probability_of_precipitation")
