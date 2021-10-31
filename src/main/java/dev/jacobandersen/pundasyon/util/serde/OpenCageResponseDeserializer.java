@@ -29,7 +29,9 @@ public class OpenCageResponseDeserializer extends StdDeserializer<OpenCageRespon
         String city = components.has("city") ?
                 components.get("city").asText() :
                 (components.has("town") ?
-                        components.get("town").asText() : null);
+                        components.get("town").asText() :
+                        (components.has("village") ?
+                                components.get("village").asText() : null));
 
         return OpenCageResponse.builder()
                 .callingCode(annotations.get("callingcode").asInt())
