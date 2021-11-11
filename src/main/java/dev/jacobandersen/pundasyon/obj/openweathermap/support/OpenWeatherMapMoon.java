@@ -22,7 +22,7 @@ public class OpenWeatherMapMoon {
     }
 
     public void setRise(long rise) {
-        this.rise = rise * 1000;
+        this.rise = rise;
     }
 
     public long getSet() {
@@ -30,7 +30,7 @@ public class OpenWeatherMapMoon {
     }
 
     public void setSet(long set) {
-        this.set = set * 1000;
+        this.set = set;
     }
 
     public Phase getPhase() {
