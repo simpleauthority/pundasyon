@@ -3,6 +3,8 @@ package dev.jacobandersen.pundasyon.obj.openweathermap;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
+import java.util.List;
+
 public class OpenWeatherMapWeatherAlert {
     /**
      * Sender of the weather alert
@@ -23,7 +25,7 @@ public class OpenWeatherMapWeatherAlert {
     /**
      * Tags indicating type of weather during the weather alert
      */
-    private String tags;
+    private List<String> tags;
 
     /**
      * Time the weather alert goes into effect (Unix timestamp)
@@ -63,11 +65,11 @@ public class OpenWeatherMapWeatherAlert {
         this.description = description;
     }
 
-    public String getTags() {
+    public List<String> getTags() {
         return tags;
     }
 
-    public void setTags(String tags) {
+    public void setTags(List<String> tags) {
         this.tags = tags;
     }
 
