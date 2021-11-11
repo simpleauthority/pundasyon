@@ -1,9 +1,7 @@
 package dev.jacobandersen.pundasyon.obj.openweathermap.support;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.fasterxml.jackson.annotation.Nulls;
 
 public class OpenWeatherMapTemperatureDrilldown {
     /**
@@ -26,15 +24,15 @@ public class OpenWeatherMapTemperatureDrilldown {
      */
     private float night;
 
-    /**
-     * Maximum temperature reached (standard: kelvin, metric: celsius, imperial: fahrenheit)
-     */
-    private Float minimum = null;
-
-    /**
-     * Minimum temperature reached (standard: kelvin, metric: celsius, imperial: fahrenheit)
-     */
-    private Float maximum = null;
+//    /**
+//     * Maximum temperature reached (standard: kelvin, metric: celsius, imperial: fahrenheit)
+//     */
+//    private Float minimum = null;
+//
+//    /**
+//     * Minimum temperature reached (standard: kelvin, metric: celsius, imperial: fahrenheit)
+//     */
+//    private Float maximum = null;
 
     @JsonGetter("morning")
     public float getMorning() {
@@ -72,25 +70,25 @@ public class OpenWeatherMapTemperatureDrilldown {
         this.night = night;
     }
 
-    @JsonGetter("minimum")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Float getMinimum() {
-        return minimum;
-    }
-
-    @JsonSetter(value = "min", nulls = Nulls.SKIP)
-    public void setMinimum(Float minimum) {
-        this.minimum = minimum;
-    }
-
-    @JsonGetter("maximum")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Float getMaximum() {
-        return maximum;
-    }
-
-    @JsonSetter(value = "max", nulls = Nulls.SKIP)
-    public void setMaximum(Float maximum) {
-        this.maximum = maximum;
-    }
+//    @JsonGetter("minimum")
+//    @JsonInclude(JsonInclude.Include.NON_NULL)
+//    public Float getMinimum() {
+//        return minimum;
+//    }
+//
+//    @JsonSetter(value = "min", nulls = Nulls.SKIP)
+//    public void setMinimum(Float minimum) {
+//        this.minimum = minimum;
+//    }
+//
+//    @JsonGetter("maximum")
+//    @JsonInclude(JsonInclude.Include.NON_NULL)
+//    public Float getMaximum() {
+//        return maximum;
+//    }
+//
+//    @JsonSetter(value = "max", nulls = Nulls.SKIP)
+//    public void setMaximum(Float maximum) {
+//        this.maximum = maximum;
+//    }
 }
