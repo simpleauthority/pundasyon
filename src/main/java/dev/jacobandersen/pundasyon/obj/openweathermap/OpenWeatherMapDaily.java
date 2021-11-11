@@ -63,11 +63,6 @@ public class OpenWeatherMapDaily {
     private int uvIndex;
 
     /**
-     * Forecasted average visibility (meters)
-     */
-    private int visibility;
-
-    /**
      * Forecasted wind information
      */
     private final OpenWeatherMapWind wind = new OpenWeatherMapWind();
@@ -201,14 +196,6 @@ public class OpenWeatherMapDaily {
     @JsonSetter("uvi")
     public void setUvIndex(int uvIndex) {
         this.uvIndex = uvIndex;
-    }
-
-    public int getVisibility() {
-        return visibility;
-    }
-
-    public void setVisibility(int visibility) {
-        this.visibility = visibility;
     }
 
     @JsonGetter("wind")
