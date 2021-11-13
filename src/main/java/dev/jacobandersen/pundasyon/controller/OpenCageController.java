@@ -1,7 +1,7 @@
 package dev.jacobandersen.pundasyon.controller;
 
-import dev.jacobandersen.pundasyon.obj.OpenCageResponse;
-import dev.jacobandersen.pundasyon.svc.OpenCageService;
+import dev.jacobandersen.pundasyon.object.opencage.OpenCageResponse;
+import dev.jacobandersen.pundasyon.service.OpenCageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;

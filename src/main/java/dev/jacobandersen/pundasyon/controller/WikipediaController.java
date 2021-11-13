@@ -1,7 +1,7 @@
 package dev.jacobandersen.pundasyon.controller;
 
-import dev.jacobandersen.pundasyon.obj.wikipedia.geoimage.WikipediaGeoimageResponse;
-import dev.jacobandersen.pundasyon.svc.WikipediaService;
+import dev.jacobandersen.pundasyon.object.wikipedia.geoimage.WikipediaGeoimageResponse;
+import dev.jacobandersen.pundasyon.service.WikipediaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;

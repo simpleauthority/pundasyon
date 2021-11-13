@@ -1,8 +1,8 @@
 package dev.jacobandersen.pundasyon.controller;
 
-import dev.jacobandersen.pundasyon.net.OpenWeatherMapClient;
-import dev.jacobandersen.pundasyon.obj.openweathermap.OpenWeatherMapResponse;
-import dev.jacobandersen.pundasyon.svc.OpenWeatherMapService;
+import dev.jacobandersen.pundasyon.net.upstream.OpenWeatherMapClient;
+import dev.jacobandersen.pundasyon.object.openweathermap.OpenWeatherMapResponse;
+import dev.jacobandersen.pundasyon.service.OpenWeatherMapService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
